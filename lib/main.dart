@@ -167,7 +167,7 @@ class _MediSchedHomeState extends State<MediSchedHome> {
     setState(() {}); // Update the screen
   }
 
-  // Load appointment data into form for editing
+  // Load appointment data into form for editings
   void _startEdit(int index) {
     final appt = _appointments[index];
     _nameController.text = appt.name;
