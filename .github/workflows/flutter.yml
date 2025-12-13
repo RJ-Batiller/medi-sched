@@ -1,4 +1,4 @@
-name: Flutter Web Build
+name: Flutter Web Deploy
 
 on:
   push:
@@ -10,20 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
-
-      - name: Install dependencies
-        run: flutter pub get
+          flutter-version: stable
 
       - name: Enable Flutter Web
         run: flutter config --enable-web
 
-      - name: Build Flutter Web
-        run: flutter build web
+      - name: Install dependencies
+        run: flutter pub get
 
+      - name: Build Flutter Web
+        run: flutter build web --release
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/web
